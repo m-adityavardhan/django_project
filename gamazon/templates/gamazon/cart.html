@@ -1,0 +1,40 @@
+{% extends "gamazon/base.html" %}
+{%block content%}
+	<div class="w3-container w3-center w3-dark-grey" style="padding:128px 16px" >
+		  
+		  
+	{% if not game%}
+	<p class="w3-large"> Your cart is empty .</p>
+	{%else%}
+	<p class="w3-large">Products you wish to buy.</p>
+	{%endif%}
+	<div class="w3-row-padding"  style="margin-top:64px">
+	
+	
+	{% for i in game%}
+			<div class="w3-half w3-section ">
+
+				<div class="w3-half w3-section w3-white ">		      
+		        <div class="w3-black w3-xlarge w3-padding-32"><img src={{i.pic.url}}  style="height: 205px;width: 200px;" class="w3-hover-opacity" alt={{i.name}} ></div>
+		        
+		        </div>
+		        <div class="w3-half w3-section w3-white">
+		        	<ul class="w3-ul w3-white w3-hover-shadow">
+		        		<li class="w3-padding-16"><h3><span>{{i.name}}</span></h3></li>
+		          		<li class="w3-padding-16"><h3 class="w3-wide" >Rs: <i class="fa fa-inr"></i>{{i.price}}/-</h3></li>
+		          
+		        
+		        
+			        	<li class="w3-light-grey w3-padding-16"><form action="{% url 'game-cart'%}" method="POST"  >
+			        		{%csrf_token%}
+			        		<input type="hidden" name="gid" value="{{i.id}}">
+			        		<input type="submit" class='w3-black w3-button'  value="Remove From Cart">
+			        	</form></li>
+		       		</ul>
+		      	</div>
+		    </div>
+			
+	{%endfor%}
+	 </div>
+		</div>
+{%endblock content%}
